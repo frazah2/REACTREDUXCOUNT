@@ -1,12 +1,12 @@
 button{
-    width: 150px;
-    height: 100px;
+    width: 120px;
+    height: 80px;
     border: none;
     border-radius: 5px;
     font-size: 25px;
     color: white;
     font-weight: 700;
-    margin: 20px;
+    margin: 10px;
 }
 .minus{
     background-color: rgb(223, 71, 71);
@@ -17,13 +17,13 @@ button{
 .five{
     background-color: rgb(41, 95, 95);
 }
-.butons{
-    width: 800px;
+.buttons{
+    width: 100%;
     height: 200px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    margin-left: 250px;
+    /* margin-left: 250px; */
 }
 .full{
     width: 100%;
@@ -37,7 +37,7 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    /* margin: 20px; */
     font-size: 20px;
 }
 .words p{
@@ -51,4 +51,10 @@ button{
 }
 .reset{
     background-color: black;
+}
+.data{
+    background-color: rgb(158, 158, 26);
+}
+.log{
+    background-color: rgb(44, 80, 180);
 }

@@ -1,53 +1,57 @@
-import './Card.css'
-
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { increment,decrementFive, incrementFive, decrement, sendData, resetAll } from "../../store/card/cardReducer"; 
+import { checkUser } from "../../store/authorisize/authReducer";
+import './Card.css';
 
 const Card = () => {
-
-
-    const { numOfItems, text } = useSelector((state) => state)
+    const { numOfItems, text } = useSelector((state) => state.card);
+    const { login } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-
-
-    const handleAdd = () => {
-        dispatch({ type: "ADD_ITEM", payload: { added: "1", }  })
-    }
-
-    const handleMinus = () => {
-        dispatch({ type: "REMOVE_ITEM",  payload: { removed: "1", }  })
-    }
-
-    const handleAddFive = () => {
-        dispatch({ type: "ADD_FIVE", payload: { added: "FIVE!", } })
-    }
-    const handleMinusFive = () => {
-        dispatch({ type: "REMOVE_FIVE", payload: { removed: "5", } })
-    }
-    const handleReset = () => {
-        dispatch({ type: "RESET_ALL", payload: { all: "RESET ALL!", } })
-    }
     
+    const handlePlus = () => {
+        dispatch(increment());
+    };
+
+    const handleFivePlus = () => {
+        dispatch(incrementFive());
+    };
+    const handleFiveMinus = () => {
+        dispatch(decrementFive());
+    };
+
+    const incrementByAmount_data = () => {
+        dispatch(sendData({
+            name: "Fraz",
+            password: "123"
+        }));
+    };
+
+    const handleLogin = () => {
+        dispatch(checkUser());
+    };
+
+    const handleReset = () => {
+        dispatch(resetAll());
+    };
+
     return (
-        <div className='full container'>
-            <div className='words'>
-                  <p>Total: {numOfItems}</p>
-                  <p>Added: {text.added}</p>
-                  <p>Removed: {text.removed}</p>
-                  <p>{text.all}</p>
+        <div className="main">
+            <div className="words">
+            <p>Total: {numOfItems}</p>
+            <p>Text: {text.name} {text.password}</p> 
+            <p>Auth: {login ? "Active" : "Inactive"}</p> 
             </div>
-            <div className='butons'>
-                <button className='minusfive' onClick={handleMinusFive}>-5</button>
-                <button className='minus' onClick={handleMinus}>Minus</button>
-                <button className='plus' onClick={handleAdd}>Plus</button>
-                <button className='five' onClick={handleAddFive}>+5</button>
-                <button className='reset' onClick={handleReset}>RESET</button>
+            <div className="buttons">
+            <button className="five" onClick={handleFivePlus}>+5</button>
+            <button className="plus" onClick={handlePlus}>+1</button>
+            <button className="minus" onClick={() => dispatch(decrement())}>-1</button>
+            <button className="minusfive" onClick={handleFiveMinus}>-5</button>
+            <button className="data" onClick={incrementByAmount_data}>Data</button>
+            <button className="log" onClick={handleLogin}>Login</button>
+            <button className="reset" onClick={handleReset}>Reset All</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Card
+export default Card;

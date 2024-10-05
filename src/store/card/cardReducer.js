@@ -1,52 +1,49 @@
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     numOfItems: 0,
-    text:"-",
+    text: {
+        name: '',
+        password: ''
+    },
 }
 
-export const cardReducer = (state = initialState, action) => {
-    // const {type, payload} = action
-
-    // eslint-disable-next-line default-case
-    switch (action.type){
-        case "ADD_ITEM":{
-            return{
-                ...state,
-                text: action.payload,
-                numOfItems: state.numOfItems + 1
+export const cardSlice = createSlice({
+    name: "card",
+    initialState,
+    reducers: {
+        increment(state) {
+            state.numOfItems += 1;
+        },
+        incrementFive(state) {
+            state.numOfItems += 5;
+        },
+        decrement(state) {
+            if (state.numOfItems > 0) {
+                state.numOfItems -= 1;
             }
-        }  
-        case "REMOVE_ITEM":{
-            return{
-                ...state,
-                text: action.payload,
-                numOfItems: state.numOfItems - 1
+        },
+        decrementFive(state) {
+            if (state.numOfItems >= 5) {
+                state.numOfItems -= 5; 
             }
+        },
+        sendData(state, action) {
+            state.text = {
+                name: action.payload.name,
+                password: action.payload.password
+            };
+        },
+        resetAll(state) {
+            state.numOfItems = 0;
+            state.text = {          
+                name: '',
+                password: ''
+            };
         }
-        case "ADD_FIVE":{
-            return{
-                ...state,
-                text: action.payload,
-                numOfItems: state.numOfItems + 5,
-            }
-        }
-        case "RESET_ALL":{
-            return{
-                ...state,
-                text: action.payload,
-                numOfItems: state.numOfItems = 0,
-            }
-        }
-        case "REMOVE_FIVE":{
-            return{
-                ...state,
-                text: action.payload,
-                numOfItems: state.numOfItems - 5,
-            }
-        }
-
-        default:
-            return state
-        
     }
-}
+})
+
+export const { increment, incrementFive, decrement, decrementFive, sendData, resetAll } = cardSlice.actions;
+
+export default cardSlice.reducer;
